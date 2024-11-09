@@ -1,0 +1,75 @@
+﻿<Window x:Class="Plot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Plot"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        Title="SignalPlot" Height="450" Width="800">
+    <Grid
+        AllowDrop="True"
+        Drop="StackPanel_Drop"
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ScottPlot:WpfPlot
+            Grid.Row="1"
+             x:Name="chart" />
+
+        <TextBox Margin="40 4 12 4"
+                 Padding="6 0 6 2"
+                 TextWrapping="Wrap"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding DataFilePath}"></TextBox>
+        <Button Grid.Column="1" Margin="4" 
+                HorizontalAlignment="Left"
+                Width="48" Height="28"
+                x:Name="BtnOpen"
+                Click="BtnOpen_Click"
+                >Open...</Button>
+
+        <StackPanel 
+            
+            Margin="0 12 4 4" Grid.Column="1" Grid.Row="1">
+            <Button
+                HorizontalAlignment="Left"
+                x:Name="btnZoom"
+                Click="btnZoom_Click"
+                Margin="4" Width="48" Height="28">Zoom</Button>
+
+            <Label>Zoom Mode</Label>
+            <RadioButton x:Name="btnZoomXY"
+                         IsChecked="True"
+                         Checked="btnZoomXY_Checked" Margin="4 0 0 0">XY</RadioButton>
+            <RadioButton x:Name="btnZoomX" Checked="btnZoomX_Checked" Margin="4 0 0 0">X</RadioButton>
+            <RadioButton x:Name="btnZoomY" Checked="btnZoomY_Checked" Margin="4 0 0 0">Y</RadioButton>
+
+            <ItemsControl
+                    
+                    Margin="8 18 18 0"
+                     ItemsSource="{Binding Plots}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding IsVisible }"></CheckBox>
+                            <TextBlock 
+                                Margin="4 0 0 0"
+                                    VerticalAlignment="Center"
+                                    FontWeight="DemiBold"
+                                    Foreground="{Binding Tag}"
+                                    Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Window>
