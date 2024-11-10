@@ -291,7 +291,7 @@ namespace Plot.Helper
 
             var plot_limit = plot.Plot.Axes.GetLimits();
 
-            if (plot_limit.Left > pos.X)
+            if (plot_limit.Left > mouseLocation.X)
             {
                 handler?.Invoke(false, -1);
                 return;
