@@ -32,6 +32,13 @@ namespace Plot.ViewModel
 
         }
 
+        int indexView;
+        public int IndexView
+        {
+            get => indexView;
+            set => Set(ref indexView, value);
+        }
+
         public MainViewModel(ScottPlot.WPF.WpfPlot plot)
         {
             this.plot = plot;
@@ -43,7 +50,32 @@ namespace Plot.ViewModel
             //Plots[0].Render(ScottPlot.Generate.Sin(1000));
             //Plots[1].Render(ScottPlot.Generate.Sin(1000, 2));
 
-            Helper.PlotInteract.InitChart(plot);
+            Helper.PlotInteract.InitChart(plot, ShowChartVal);
+        }
+
+        void ShowChartVal(bool isShow, int x)
+        {
+            this.IndexView = x;
+
+            for (int i = 0; i < csvReader.NSignal; i++)
+            {
+
+                if (!isShow)
+                {
+                    this.Plots[i].SetViewValue(false, 0);
+                    continue;
+                }
+
+                try
+                {
+                    var y = csvReader.Datas[i][x];
+                    this.Plots[i].SetViewValue(isShow, y);
+                }
+                catch (Exception)
+                {
+                    this.Plots[i].SetViewValue(false, 0);
+                }
+            }
         }
 
 

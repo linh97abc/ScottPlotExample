@@ -14,6 +14,27 @@ namespace Plot.Helper
 
         public ScottPlot.WPF.WpfPlot Plot { get; set; }
 
+        double viewVal;
+        bool isShowView;
+
+        public void SetViewValue(bool isShow, double viewVal)
+        {
+            this.isShowView = isShow;
+            this.viewVal = viewVal;
+            OnPropertyChanged(nameof(ViewValue));
+        }
+
+
+        public string ViewValue
+        {
+            get
+            {
+                if(!isShowView) return string.Empty;
+                return viewVal.ToString();
+            }
+
+        }
+
 
         public IPlottable Signal { get; protected set; }
 

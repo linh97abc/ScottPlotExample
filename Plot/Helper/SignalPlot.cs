@@ -8,6 +8,7 @@ namespace Plot.Helper
 {
     public class SignalPlot : SignalPlotBase
     {
+
         public void Render(double[] data)
         {
             var sig = this.Plot.Plot.Add.Signal(data);

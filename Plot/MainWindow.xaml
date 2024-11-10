@@ -21,6 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <ScottPlot:WpfPlot
+            Margin="4"
             Grid.Row="1"
              x:Name="chart" />
 
@@ -39,19 +40,43 @@
         <StackPanel 
             
             Margin="0 12 4 4" Grid.Column="1" Grid.Row="1">
-            <Button
+            <!--<Button
+                HorizontalAlignment="Left"
+                x:Name="btnZoom"
+                Click="btnZoom_Click"
+                Margin="4" Width="48" Height="28">Zoom</Button>-->
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                </StackPanel.Resources>
+            <!--<Label >ZoomMode:</Label>-->
+                <Button
                 HorizontalAlignment="Left"
                 x:Name="btnZoom"
                 Click="btnZoom_Click"
                 Margin="4" Width="48" Height="28">Zoom</Button>
-
-            <Label>Zoom Mode</Label>
-            <RadioButton x:Name="btnZoomXY"
+                
+                <RadioButton 
+                
+                x:Name="btnZoomXY"
                          IsChecked="True"
                          Checked="btnZoomXY_Checked" Margin="4 0 0 0">XY</RadioButton>
-            <RadioButton x:Name="btnZoomX" Checked="btnZoomX_Checked" Margin="4 0 0 0">X</RadioButton>
-            <RadioButton x:Name="btnZoomY" Checked="btnZoomY_Checked" Margin="4 0 0 0">Y</RadioButton>
+            <RadioButton
+                
+                x:Name="btnZoomX" Checked="btnZoomX_Checked" Margin="6 0 0 0">X</RadioButton>
+            <RadioButton x:Name="btnZoomY" Checked="btnZoomY_Checked" Margin="6 0 18 0">Y</RadioButton>
+            </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+                <Label>x = </Label>
+                <TextBlock 
+                    Margin="12 0 0 0"
+                    VerticalAlignment="Center" Text="{Binding IndexView}"/>
+            </StackPanel>
+            
             <ItemsControl
                     
                     Margin="8 18 18 0"
@@ -62,10 +87,21 @@
                             <CheckBox IsChecked="{Binding IsVisible }"></CheckBox>
                             <TextBlock 
                                 Margin="4 0 0 0"
+                                Width="90"
+                                TextWrapping="WrapWithOverflow"
                                     VerticalAlignment="Center"
                                     FontWeight="DemiBold"
                                     Foreground="{Binding Tag}"
-                                    Text="{Binding Name}"></TextBlock>
+                                    Text="{Binding Name}"
+                                ></TextBlock>
+
+                            <TextBlock
+                                Width="90"
+                                Margin="4 0 0 0"
+                                VerticalAlignment="Center"
+                                    Foreground="{Binding Tag}"
+                                    Text="{Binding ViewValue}"
+                                />
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

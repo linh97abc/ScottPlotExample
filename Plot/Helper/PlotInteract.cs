@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Plot.Helper
 {
+    public delegate void ShowValueAtX(bool isShow, int x);
+
     public  static class PlotInteract
     {
         public static (SignalXY signalXY, DataPoint point) GetSignalXYUnderMouse(ScottPlot.Plot plot, double x, double y)
@@ -278,19 +280,60 @@ namespace Plot.Helper
 
 
 
-        public static void InitChart(ScottPlot.WPF.WpfPlot plot)
+        static void MouseMouse(ScottPlot.WPF.WpfPlot plot, System.Windows.Input.MouseEventArgs e, ShowValueAtX handler)
         {
-            ScottPlot.Plottables.Crosshair crosshair;
+            var pos = e.GetPosition(plot);
+
+            Pixel mousePixel = new Pixel(pos.X, pos.Y);
+
+            Coordinates mouseLocation = plot.Plot.GetCoordinates(mousePixel);
+
+
+            var plot_limit = plot.Plot.Axes.GetLimits();
+
+            if (plot_limit.Left > pos.X)
+            {
+                handler?.Invoke(false, -1);
+                return;
+            }
+
+            if (plot_limit.Right < mouseLocation.X)
+            {
+                handler?.Invoke(false, -1);
+                return;
+            }
+
+            if (plot_limit.Bottom > mouseLocation.Y)
+            {
+                handler?.Invoke(false, -1);
+                return;
+            }
+
+            if (plot_limit.Top < mouseLocation.Y)
+            {
+                handler?.Invoke(false, -1);
+                return;
+            }
+
+            handler?.Invoke(true, (int)(mouseLocation.X + 0.5));
+
+
+        }
+
+
+        public static void InitChart(ScottPlot.WPF.WpfPlot plot, ShowValueAtX showValueAtX)
+        {
+            //ScottPlot.Plottables.Crosshair crosshair;
+
+            //crosshair = plot.Plot.Add.Crosshair(0, 0);
+            //crosshair.IsVisible = false;
+            //crosshair.MarkerShape = MarkerShape.OpenCircle;
+            //crosshair.MarkerSize = 15;
+            //crosshair.TextColor = ScottPlot.Colors.White;
+            //crosshair.TextBackgroundColor = crosshair.HorizontalLine.Color;
+
+
             plot.Plot.Legend.IsVisible = false;
-
-            crosshair = plot.Plot.Add.Crosshair(0, 0);
-            crosshair.IsVisible = false;
-            crosshair.MarkerShape = MarkerShape.OpenCircle;
-            crosshair.MarkerSize = 15;
-            crosshair.TextColor = ScottPlot.Colors.White;
-            crosshair.TextBackgroundColor = crosshair.HorizontalLine.Color;
-
-
             plot.Plot.FigureBackground.Color = ScottPlot.Colors.Transparent;
             plot.Plot.Axes.Color(ScottPlot.Colors.Gray);
             plot.Plot.Grid.MajorLineColor = ScottPlot.Colors.Gray.WithOpacity(0.25);
@@ -303,26 +346,30 @@ namespace Plot.Helper
             plot.MouseMove += (s, e) =>
             {
                 var pos = e.GetPosition(plot);
+
+
+                MouseMouse(plot, e, showValueAtX);
+
                 //var xy = Helper.Plot.GetSignalXYUnderMouse(plot.Plot, pos.X, pos.Y);
-                var xy = GetDataLoggerUnderMouse(plot.Plot, pos.X, pos.Y);
+                //var xy = GetDataLoggerUnderMouse(plot.Plot, pos.X, pos.Y);
 
-                if (xy.point.IsReal)
-                {
-                    crosshair.IsVisible = true;
-                    crosshair.Position = xy.point.Coordinates;
+                //if (xy.point.IsReal)
+                //{
+                //    crosshair.IsVisible = true;
+                //    crosshair.Position = xy.point.Coordinates;
 
-                    crosshair.VerticalLine.Text = $"{xy.point.Index}, {xy.signalXY.LegendText}:{xy.point.Y}";
-                    plot.Refresh();
-                }
-                else
-                {
-                    if (crosshair.IsVisible)
-                    {
-                        crosshair.IsVisible = false;
-                        plot.Refresh();
+                //    crosshair.VerticalLine.Text = $"{xy.point.Index}, {xy.signalXY.LegendText}:{xy.point.Y}";
+                //    plot.Refresh();
+                //}
+                //else
+                //{
+                //    if (crosshair.IsVisible)
+                //    {
+                //        crosshair.IsVisible = false;
+                //        plot.Refresh();
 
-                    }
-                }
+                //    }
+                //}
 
             };
         }
