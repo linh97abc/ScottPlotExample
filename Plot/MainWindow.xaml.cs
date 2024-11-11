@@ -1,4 +1,5 @@
 ﻿using Plot.ViewModel;
+using ScottPlot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,17 @@ namespace Plot
 
             this.viewModel = new MainViewModel(this.chart);
             this.DataContext = viewModel;
+
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+
+
         }
 
         private void BtnOpen_Click(object sender, RoutedEventArgs e)

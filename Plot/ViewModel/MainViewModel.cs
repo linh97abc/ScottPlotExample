@@ -57,23 +57,24 @@ namespace Plot.ViewModel
         {
             this.IndexView = x;
 
-            for (int i = 0; i < csvReader.NSignal; i++)
+            foreach (var item in this.Plots)
             {
+               
 
                 if (!isShow)
                 {
-                    this.Plots[i].SetViewValue(false, 0);
+                    item.SetViewValue(false, 0);
                     continue;
                 }
 
                 try
                 {
-                    var y = csvReader.Datas[i][x];
-                    this.Plots[i].SetViewValue(isShow, y);
+                    var y = item.GetY(x);
+                    item.SetViewValue(isShow, y);
                 }
                 catch (Exception)
                 {
-                    this.Plots[i].SetViewValue(false, 0);
+                    item.SetViewValue(false, 0);
                 }
             }
         }

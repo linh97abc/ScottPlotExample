@@ -9,8 +9,16 @@ namespace Plot.Helper
     public class SignalPlot : SignalPlotBase
     {
 
+        double[] dataY;
+
+        public double GetY(int index)
+        {
+            return this.dataY[index];
+        }
+
         public void Render(double[] data)
         {
+            this.dataY = data;
             var sig = this.Plot.Plot.Add.Signal(data);
             this.Signal = sig;
 
@@ -21,11 +29,13 @@ namespace Plot.Helper
 
         public void Render(List<double> data)
         {
-            var sig = this.Plot.Plot.Add.Signal(data);
-            this.Signal = sig;
+            this.Render(data.ToArray());
 
-            sig.LegendText = this.Name;
-            this.Tag = sig.LineColor.ToHex();
+            //var sig = this.Plot.Plot.Add.Signal(data);
+            //this.Signal = sig;
+
+            //sig.LegendText = this.Name;
+            //this.Tag = sig.LineColor.ToHex();
 
         }
 

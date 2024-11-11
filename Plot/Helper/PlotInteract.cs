@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Plot.Helper
 {
     public delegate void ShowValueAtX(bool isShow, int x);
 
-    public  static class PlotInteract
+    public static class PlotInteract
     {
         public static (SignalXY signalXY, DataPoint point) GetSignalXYUnderMouse(ScottPlot.Plot plot, double x, double y)
         {
@@ -282,6 +283,7 @@ namespace Plot.Helper
 
         static void MouseMouse(ScottPlot.WPF.WpfPlot plot, System.Windows.Input.MouseEventArgs e, ShowValueAtX handler)
         {
+            
             var pos = e.GetPosition(plot);
 
             Pixel mousePixel = new Pixel(pos.X, pos.Y);
@@ -345,8 +347,15 @@ namespace Plot.Helper
 
             plot.MouseMove += (s, e) =>
             {
-                var pos = e.GetPosition(plot);
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    return;
+                }
 
+                if (e.RightButton == MouseButtonState.Pressed)
+                {
+                    return;
+                }
 
                 MouseMouse(plot, e, showValueAtX);
 
@@ -383,7 +392,7 @@ namespace Plot.Helper
                 item.Refresh();
             }
 
-            
+
         }
 
         public static void Zoom_X(
@@ -403,7 +412,7 @@ namespace Plot.Helper
                 item.Refresh();
             }
 
-            
+
         }
 
         public static void Zoom_Y(
@@ -423,7 +432,7 @@ namespace Plot.Helper
                 item.Refresh();
             }
 
-            
+
         }
     }
 }
