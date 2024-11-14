@@ -1,5 +1,6 @@
 ﻿using Plot.ViewModel;
 using ScottPlot;
+using ScottPlot.Plottables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,16 @@ namespace Plot
             this.viewModel = new MainViewModel(this.chart);
             this.DataContext = viewModel;
 
+            //const int CACHE_LEN = 200;
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1, CACHE_LEN));
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
@@ -38,7 +49,19 @@ namespace Plot
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
             //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
-            //this.chart.Plot.Add.Signal(Generate.RandomWalk(10000000));
+
+            //int pointCount = 1_000_000;
+            //int pointCount = 20_000_000;
+            //double[] ys = ScottPlot.Generate.RandomWalk(pointCount);
+            //double[] xs = ScottPlot.Generate.Consecutive(pointCount);
+
+
+            ////var signal = this.chart.Plot.Add.Signal(ys);
+            ////signal.AlwaysUseLowDensityMode = false;
+
+            //var s2 = new Helper.CustomSignalPlot(new ScottPlot.DataSources.FastSignalSourceDouble(ys, 1));
+            //this.chart.Plot.Add.Plottable(s2);
+
 
 
         }

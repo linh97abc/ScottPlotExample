@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScottPlot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,12 @@ namespace Plot.Helper
         public void Render(double[] data)
         {
             this.dataY = data;
-            var sig = this.Plot.Plot.Add.Signal(data);
+            //var sig = this.Plot.Plot.Add.Signal(data);
+
+            var sig = this.Plot.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(data, 1, 200));
+
+            //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1));
+
             this.Signal = sig;
 
             sig.LegendText = this.Name;
