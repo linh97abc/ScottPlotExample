@@ -22,7 +22,9 @@ namespace Plot.Helper
             this.dataY = data;
             //var sig = this.Plot.Plot.Add.Signal(data);
 
-            var sig = this.Plot.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(data, 1, 200));
+            //var sig = this.Plot.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(data, 1, 200));
+            var sig = this.Plot.Plot.Add.SignalConst(data);
+
 
             //this.chart.Plot.Add.Signal(new ScottPlot.DataSources.FastSignalSourceDouble(Generate.RandomWalk(10000000), 1));
 
